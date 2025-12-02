@@ -32,9 +32,15 @@ jobs:
 
     - name: Checkout qmk_firmware
       uses: ./.github/actions/checkout-qmk_firmware
-      
+        
     - name: Install a link to own source
       run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
+    
+    - name: Set up Python virtual environment
+      run: |
+        python3 -m venv venv
+        source venv/bin/activate
+        pip install -r __qmk__/requirements.txt
 
     - name: Install missing python modules
       run: /usr/bin/python3 -m pip install -r __qmk__/requirements.txt
