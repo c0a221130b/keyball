@@ -36,17 +36,13 @@ jobs:
     - name: Install a link to own source
       run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
 
-    - name: make vemv environment
+    - name: make vemv environment and Install missing python modules
       run: |
         sudo apt-get update
         sudo apt-get install -y python3-venv
         /usr/bin/python3 -m venv venv
         . venv/bin/activate
-
-    - name: Install missing python modules
-      run: |
-        . /venv/bin/activate
-        /venv/bin/python3 -m pip install -r __qmk__/requirements.txt
+         -m pip install -r __qmk__/requirements.txt
 
     - name: Compile and link
       run: qmk compile -j 4 -kb keyball/${{ inputs.keyboard }} -km ${{ inputs.keymap }}
