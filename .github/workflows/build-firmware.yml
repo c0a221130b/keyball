@@ -44,7 +44,9 @@ jobs:
         . venv/bin/activate
 
     - name: Install missing python modules
-      run: -m pip install -r __qmk__/requirements.txt
+      run: |
+        . /venv/bin/activate
+        /venv/bin/python3 -m pip install -r __qmk__/requirements.txt
 
     - name: Compile and link
       run: qmk compile -j 4 -kb keyball/${{ inputs.keyboard }} -km ${{ inputs.keymap }}
